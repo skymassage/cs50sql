@@ -26,10 +26,10 @@ VALUES
 
 -- Demonstrates deleting rows from a single table.
 
--- Delete item with particular title
+-- Delete items with particular title
 DELETE FROM "collections" WHERE "title" = 'Spring outing';
 
--- Delete item where value is NULL
+-- Delete items where value is NULL
 DELETE FROM "collections" WHERE "acquired" IS NULL;
 
 -- Delete items acquired before the museum moved to a new location in 1909

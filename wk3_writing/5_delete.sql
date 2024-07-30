@@ -59,8 +59,8 @@ VALUES
 -- Raise a foreign key constraint error (it may not raise any error in this environment)
 DELETE FROM "artists" WHERE "name" = 'Unidentified artist';
 
--- We need to delete the corresponding rows from the created table before deleting from the artists table.
--- First, delete the artist's affiliation with their work.
+-- We need to delete the corresponding rows from the "created" table before deleting from the "artists" table.
+-- First, delete the "artist"'s affiliation with their work.
 DELETE FROM "created" WHERE "artist_id" = (
     SELECT "id" FROM "artists" WHERE "name" = 'Unidentified artist'
 );

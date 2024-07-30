@@ -1,39 +1,39 @@
--- A column constraint is a type of constraint that applies to a specified column in the table.
--- SQLite has four column constraints:
--- CHECK: Allow checking for a condition, like all values in the column must be greater than 0
--- DEFAULT: Use a default value if none is supplied for a row
--- NOT NULL: Dictate that a null or empty value cannot be inserted into the column
--- UNIQUE: Dictate that every value in this column must be unique
-
--- Primary key columns and by extension, foreign key columns must always have unique values, 
--- so there is no need to explicitly specify the NOT NULL or UNIQUE for primary key or foreign key columns. 
-
 --------------------------------------------------------------- Create or open mbta.db using sqlite3 mbta.db
--- Deletes prior tables if they exist
+-- Delete sprior tables if they exist
 DROP TABLE IF EXISTS "riders";
 DROP TABLE IF EXISTS "stations";
 DROP TABLE IF EXISTS "visits";
 DROP TABLE IF EXISTS "swipes";
 DROP TABLE IF EXISTS "cards";
 
--- Adds UNIQUE, NOT NULL as column constraints
+-- Use CHECK, DEFAULT as column constraints
 
-CREATE TABLE "riders" (
+CREATE TABLE "cards" (
     "id" INTEGER,
-    "name" TEXT,
     PRIMARY KEY("id")
 );
 
 CREATE TABLE "stations" (
     "id" INTEGER,
-    "name" TEXT NOT NULL UNIQUE,    -- Ensure the station name are specified and each station must have a unique name.
-    "line" TEXT NOT NULL,           -- Ensure the line are specified.
+    "name" TEXT NOT NULL UNIQUE,
+    "line" TEXT NOT NULL,
     PRIMARY KEY("id")
 );
 
-CREATE TABLE "visits" (
-    "rider_id" INTEGER,
+CREATE TABLE "swipes" (
+    "id" INTEGER,
+    "card_id" INTEGER,
     "station_id" INTEGER,
-    FOREIGN KEY("rider_id") REFERENCES "riders"("id"),
-    FOREIGN KEY("station_id") REFERENCES "stations"("id")
+    "type" TEXT NOT NULL CHECK("type" IN ('enter', 'exit', 'deposit')),
+    "datetime" NUMERIC NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "amount" NUMERIC NOT NULL CHECK("amount" != 0),
+    PRIMARY KEY("id"),
+    FOREIGN KEY("station_id") REFERENCES "stations"("id"),
+    FOREIGN KEY("card_id") REFERENCES "cards"("id")
 );
+-- The "datetime" column is given the type affinity numeric - this is because numeric types can store and display date values.
+-- The "CURRENT_TIMESTAMP" function returns the current date and time in UTC in the format YYYY-MM-DD HH:MM:SS.
+-- A default value is assigned to the "datetime" column so that it automatically picks up the current timestamp in SQLite if none is supplied.
+
+-- Implement the column constraint CHECK with an expression "amount" != 0 to the "amount" column to ensure the amount on a swipe is not 0.
+-- Similarly, use CHECK to check on "type to ensure its value is one of "enter", "exit" and "deposit". Notice the use of the "IN" keyword to carry out this check.

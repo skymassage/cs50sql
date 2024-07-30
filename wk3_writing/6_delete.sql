@@ -70,5 +70,5 @@ VALUES
 -- Deletes an artist when foreign key ON DELETE action is set to CASCADE
 DELETE FROM "artists" WHERE "name" = 'Unidentified artist';
 -- It will not result in an error, and will cascade the deletion from the "artists" table to the "created" table.
--- Note that we should set the following SQLite command to make sure the foreign key also to be deleted successfully.
+-- Note that we should use the following SQLite command to make sure the foreign key also to be deleted successfully:
 PRAGMA foreign_keys = ON;

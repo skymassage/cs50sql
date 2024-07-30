@@ -51,7 +51,7 @@ VALUES
 
 -- Demonstrates updating authorship
 
--- Updates authorship (incorrectly), all values in the "artist_id" will be the same.
+-- Updates authorship (incorrectly), which causes all values in the "artist_id" to be the same.
 UPDATE "created" SET "artist_id" = (
     SELECT "id" FROM "artists" WHERE "name" = 'Li Yin'
 );

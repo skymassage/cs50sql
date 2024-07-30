@@ -63,7 +63,8 @@ CREATE TABLE IF NOT EXISTS "transactions" (
 
 -- Demonstrates triggers on delete and insert
 
--- First create trigger, and then some name. So we tend to give triggers names to identify them among all of our database schema.
+-- First create trigger, and then some name.
+-- we tend to give triggers names to identify them among all of our database schema.
 -- After creating trigger, we have to specify the trigger to run before or after some other SQL statement using "BEFORE" or "AFTER".
 -- The SQL statements after "AFTER" or "BEFORE" would be insert, delete, update, like: INSERT ON <table>
 --                                                                                     DELETE ON <table>

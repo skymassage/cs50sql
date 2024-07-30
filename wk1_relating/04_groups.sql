@@ -31,4 +31,4 @@ GROUP BY "book_id"
 HAVING "average rating" > 4.0
 ORDER BY "average rating" DESC;
 -- Note that we can't find books books with a higher rating than 4.0 first and then order them, that is,
--- "HAVING..." should be before "ORDER BY..." (and after "GROUP BY").
+-- we cannot use "ORDER BY" before "GROUP BY".
