@@ -1,0 +1,4 @@
+------------------------------------cs50sql
+1. sudo apt install sqlite3
+2. If arrow keys don't work in SQLite, install this: sudo apt-get install rlwrap
+   And add "rlwrap" before the "sqlite3" command when entering SQLite, like this: rlwrap sqlite3 <database>.db

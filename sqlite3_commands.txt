@@ -1,0 +1,36 @@
+----------------------------------------------------------------------Thees command are SQLite specified
+sqlite3 <database.db>: Use the third version of SQLite to create or get into the SQL database with a filename extension "db".
+
+.mode csv: put sqlite3 into CSV mode.
+
+.import <file.csv> <table>: import data from the CSV file into the table, where <table> is the name of the table you create, and this table is added to <database.db>,
+                            when accessing the same database you do not re-import again using this command,
+                            note that to import data from the CSV file, you must execute ".mode csv" before ".import", otherwise all columns will be in one column without separation and you can't specify the column.
+
+.quit .exit Ctrl+D: Exit from sqlite3.
+
+.tables: List all of the tables in the database
+
+.schema: Display the structure of the database, i.e. the structures of each table.
+
+.schema <table>: Display the structure of <table>.
+
+.timer on|off: Turn SQL timer on or off
+               SQL timer keeps track of how long each command takes.
+               Run time has three type: user time, system time, real time.
+               Real time is wall clock time - the actual amount of time it took to run the command.
+               User time is how much work the CPU did to run to run the command's code.
+               Syetem time is how much work the CPU had to do to handle 'system overhead' type tasks 
+               (such as allocating memory, file I/O, ect.) in order to support the running command.
+               
+.read <file.sql>: run the commands of <file.sql> in SQLite.
+
+.headers <on/off> -- Turn table headers display on or off
+
+.mode <tabular_output_mode>: <tabular_output_mode> has four modes: column, table, markdown, box. 
+                             These modes will turn ".header" on if it has not been previously set.
+
+---------------------------------------------------------------------- Use the following commands outside of sqlite3:
+cat <file>.sql | sqlite3 <database>.db: Execute all queries in <file>.sql on <database>.db
+
+cat <file>.sql | sqlite3 <database>.db > <output>.txt: Redirect the output of all queries in <file>.sql to a text file called <output>.txt. 
