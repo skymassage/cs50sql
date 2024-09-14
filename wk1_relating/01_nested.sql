@@ -34,12 +34,6 @@ SELECT "name" FROM "authors" WHERE "id" = (
 );
 
 -- Finds all books by Fernanda Melchor, using IN
-SELECT "id" FROM "authors" WHERE "name" = 'Fernanda Melchor';   -- id = 24
-
-SELECT "book_id" FROM "authored" WHERE "author_id" = (
-    SELECT "id" FROM "authors" WHERE "name" = 'Fernanda Melchor'   -- id = 24
-);    -- book_id = [14, 48]
-
 SELECT "title" FROM "books" WHERE "id" IN (
     SELECT "book_id" FROM "authored" WHERE "author_id" = (
         SELECT "id" FROM "authors" WHERE "name" = 'Fernanda Melchor'   -- id = 24

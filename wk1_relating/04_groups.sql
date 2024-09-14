@@ -30,5 +30,5 @@ JOIN "books" ON "books"."id" = "ratings"."book_id"
 GROUP BY "book_id"
 HAVING "average rating" > 4.0
 ORDER BY "average rating" DESC;
--- Note that we can't find books books with a higher rating than 4.0 first and then order them, that is,
--- we cannot use "ORDER BY" before "GROUP BY".
+-- Note that we can't find books books with a higher rating than 4.0 first and then order them,
+-- i.e., we cannot use "ORDER BY" before "GROUP BY".

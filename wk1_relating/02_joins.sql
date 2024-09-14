@@ -10,11 +10,11 @@ SELECT * FROM "sea_lions" JOIN "migrations" ON "migrations"."id" = "sea_lions"."
 -- Each of these is a kind of OUTER JOIN.
 
 -- Show all sea lions, whether or not we have data
--- Use "LEFT JOIN" to keep all values of the left table ("migrations") even "migrations"."id" fully don't match "sea_lions"."id".
+-- Use "LEFT JOIN" to keep all values of the left table ("sea_lions") even "sea_lions"."id" fully don't match "migrations"."id".
 SELECT * FROM "sea_lions" LEFT JOIN "migrations" ON "migrations"."id" = "sea_lions"."id";
 
 -- Show all data, whether or not there are matching sea lions
--- Use "RIGHT JOIN" to keep all values of the right table ("sea_lions") even "migrations"."id" don't fully match "sea_lions"."id".
+-- Use "RIGHT JOIN" to keep all values of the right table ("migrations") even "sea_lions"."id" don't fully match "migrations"."id".
 SELECT * FROM "sea_lions" RIGHT JOIN "migrations" ON "migrations"."id" = "sea_lions"."id";
 -- If SQL doesn't support "LEFT JOIN", we can use "LEFT JOIN" to replace it:
 SELECT * FROM "migrations" LEFT JOIN "sea_lions" ON "migrations"."id" = "sea_lions"."id";
@@ -31,6 +31,3 @@ SELECT "sea_lions".*, "migrations".* FROM "migrations" LEFT JOIN "sea_lions" ON 
 -- Since the value on which we are joining "sea_lions" and "migrations" has the same id column name in both tables, 
 -- we can actually omit the "ON" section of the query using "NATURAL JOIN".
 SELECT * FROM "sea_lions" NATURAL JOIN "migrations";
-
--- Use WHERE after joining a table
-SELECT * FROM "sea_lions" JOIN "migrations" ON "migrations"."id" = "sea_lions"."id" WHERE "migrations"."distance" > 1500;

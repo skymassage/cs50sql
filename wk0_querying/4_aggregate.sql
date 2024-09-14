@@ -17,7 +17,7 @@ SELECT MAX("rating") FROM "longlist";
 SELECT MIN("rating") FROM "longlist";
 
 -- Using MAX and MIN for strings is based on alphabetical order
--- So here using MAX with the title column would give us the "largest" (or in this case, last) title alphabetically. 
+-- So here using MAX with the title column would give us the "largest" title alphabetically (i.e. the last one in the title column).
 -- Similarly, MIN will give the first title alphabetically.
 SELECT MAX("title"), MIN("title") FROM "longlist";
 
