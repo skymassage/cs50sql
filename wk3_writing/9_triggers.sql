@@ -65,12 +65,12 @@ CREATE TABLE IF NOT EXISTS "transactions" (
 
 -- First create trigger, and then some name.
 -- we tend to give triggers names to identify them among all of our database schema.
--- After creating trigger, we have to specify the trigger to run before or after some other SQL statement using "BEFORE" or "AFTER".
+-- And we have to specify the trigger to run before or after some other SQL statement using "BEFORE" or "AFTER".
 -- The SQL statements after "AFTER" or "BEFORE" would be insert, delete, update, like: INSERT ON <table>
 --                                                                                     DELETE ON <table>
 --                                                                                     UPDATE OF <column> ON <table>
 -- Then, we can use "FOR EACH ROW" which means if we were to maybe insert (delete or update) multiple rows, 
--- we should run our SQL statement for each row that we insert (delete or update). 
+-- we should run our SQL statement for each row if we insert (delete or update) to that row. 
 -- For instance, if we delete two rows, we should run our statement two times. 
 -- Finally, we can use "BEGIN" and "END" to contain our SQL statement whenever we hear a insert (delete or update) on the table. 
 -- For example, a trigger could be like this:
@@ -78,8 +78,8 @@ CREATE TRIGGER <name>
 BEFORE DELETE ON <table>
 FOR EACH ROW
 BEGIN
- <our_SQL_statement_1>;
- <our_SQL_statement_2>;
+ <SQL_statement_1>;
+ <SQL_statement_2>;
  ...
 END;
 -- This example means listening for a delete and run our statement in here for each row that we delete.

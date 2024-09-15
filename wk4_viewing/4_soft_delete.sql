@@ -68,10 +68,10 @@ FOR EACH ROW
 BEGIN
     UPDATE "collections" SET "deleted" = 1 WHERE "id" = OLD."id";
 END;
--- Every time we try to delete rows from the view, this trigger will update the deleted column of the row 
+-- Every time we try to delete rows from the view, this trigger will update the deleted column of that row 
 -- in the underlying table "collections", thus completing the soft deletion.
 -- Thus, deletion won't happen when we try to delete rows from the view "current_collections", so it won't raise any error.
--- We use the keyword "OLD" within our update clause to indicate that the ID of the row updated in "collections" 
+-- We use the keyword "OLD" within the update clause to indicate that the ID of the row updated in "collections" 
 -- should be the same as the ID of the row we are trying to delete from "current_collections".
 
 -- Now, we can delete a row from the current_collections view without rasing an error.

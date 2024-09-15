@@ -38,5 +38,5 @@ DROP TABLE "temp";
 -- the insertion command will result in an error and none of the rows will be inserted.
 
 -- Here one of the "acquired" values in the table is missing, i.e., empty and not NULL.
--- This was interpreted as text and hence, read into the table as an empty text value. 
+-- This was interpreted as text, and hence read into the table as an empty text value. 
 -- We can run queries on the table after importing to convert these empty values into NULL if required.

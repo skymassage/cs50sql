@@ -36,11 +36,11 @@ VALUES
 
 -- We can specify the action to be taken when an ID referenced by a foreign key is deleted. 
 -- To do this, when we are creating tables, we can use the keyword ON DELETE followed by the action to be taken.
--- ON DELETE RESTRICT: This restricts us from deleting IDs when the foreign key constraint is violated.
--- ON DELETE NO ACTION: This allows the deletion of IDs that are referenced by a foreign key and nothing happens.
--- ON DELETE SET NULL: This allows the deletion of IDs that are referenced by a foreign key and sets the foreign key references to NULL.
--- ON DELETE SET DEFAULT: This does the same as the previous, but allows us to set a default value instead of NULL.
--- ON DELETE CASCADE: This allows the deletion of IDs that are referenced by a foreign key 
+-- ON DELETE RESTRICT: Restricts us from deleting IDs when the foreign key constraint is violated.
+-- ON DELETE NO ACTION: Allows the deletion of IDs that are referenced by a foreign key and nothing happens.
+-- ON DELETE SET NULL: Allows the deletion of IDs that are referenced by a foreign key and sets the foreign key references to NULL.
+-- ON DELETE SET DEFAULT: Does the same as the previous, but allows us to set a default value instead of NULL.
+-- ON DELETE CASCADE: Allows the deletion of IDs that are referenced by a foreign key 
 --                    and also proceeds to cascadingly delete the referencing foreign key rows. 
 --                    For example, if we used this to delete an artist ID, 
 --                    all the artist's affiliations with the artwork would also be deleted from the created table.

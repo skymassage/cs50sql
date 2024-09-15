@@ -44,5 +44,5 @@ CREATE TABLE "visits" (
 --     "station_id" INTEGER,
 --     PRIMARY KEY("rider_id", "station_id")
 -- );
--- Here we probably want to allow a rider to visit a station more than once, so we would not move ahead with this approach.
--- (Because PRIMARY KEY("rider_id", "station_id") is unique)
+-- Because PRIMARY KEY("rider_id", "station_id") is unique and here we probably want to allow a rider to visit a station more than once,
+-- we wouldn't move ahead with this approach.

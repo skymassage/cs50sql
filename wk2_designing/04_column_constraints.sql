@@ -36,4 +36,5 @@ CREATE TABLE "swipes" (
 -- A default value is assigned to the "datetime" column so that it automatically picks up the current timestamp in SQLite if none is supplied.
 
 -- Implement the column constraint CHECK with an expression "amount" != 0 to the "amount" column to ensure the amount on a swipe is not 0.
--- Similarly, use CHECK to check on "type to ensure its value is one of "enter", "exit" and "deposit". Notice the use of the "IN" keyword to carry out this check.
+-- Similarly, use CHECK to check on "type to ensure its value is one of "enter", "exit" and "deposit".
+-- Notice the use of the "IN" keyword to carry out this check.
