@@ -10,4 +10,4 @@ SELECT * FROM `accounts` WHERE `id` = 1;
 SELECT * FROM `accounts` WHERE `id` = 1
 UNION
 SELECT * FROM `accounts`;
--- It showed all rows.
+-- It showed all rows, so all data is leaked.

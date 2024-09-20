@@ -32,7 +32,7 @@ SELECT * FROM "movies" WHERE "title" = 'Cars';
 -- The run time is significantly shorter.
 
 -- Once the index was created, we just assumed that SQL would use it to find a movie. 
--- However, we can also explicitly see this using a SQLite command "EXPLAIN QUERY PLAN" before any query.
+-- However, we can also explicitly see this using a SQLite command "EXPLAIN QUERY PLAN" with any query.
 -- Other DBMSs might call this just simply "EXPLAIN", but in SQLite it's "EXPLAIN QUERY PLAN".
 -- "EXPLAIN QUERY PLAN SQL" is used to obtain a high-level description of the strategy or plan 
 -- that SQLite uses to implement a specific SQL query. 

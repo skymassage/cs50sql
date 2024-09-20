@@ -6,7 +6,7 @@ SHOW DATABASES;
 
 -- Create `mbta` database
 CREATE DATABASE IF NOT EXISTS `mbta`;
--- Instead of quotation marks, we use backticks(`) to identify the table name and other variables in our SQL statements.
+-- Instead of quotation marks, we use backticks(`) to identify the table name and other variables in the MySQL statements.
 
 -- Use the database named "mbta" for subsequent statements or queries:
 USE `mbta`;
@@ -28,7 +28,7 @@ DESCRIBE `cards`;
 -- +------------------------------------------------------+
 -- | id    | int  | NO   | PRI | NULL    | auto_increment |
 -- +------------------------------------------------------+
--- The "NULL" column means whether this field can accept a null value, here "NO" means it never hold a null value.
+-- The "NULL" column above means whether this field can accept a null value, here "NO" means it never hold a null value.
 -- "Default" means the default value.
 
 -- Create the "stations" table.

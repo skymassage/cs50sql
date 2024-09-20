@@ -16,7 +16,7 @@ END//
 delimiter ;
 -- In SQLite, we could type in multiple statements between a BEGIN and END and end them with a semicolon ';',
 -- but MySQL recognizes ';' as a statement delimiter and prematurely ends the statement when it encounters ';'.
--- So we must redefine the delimiter temporarily to cause mysql to pass the entired statement to the server.
+-- So we must redefine the delimiter temporarily to let mysql pass the entired statement to the server.
 -- We use "delimiter" to refine the delimiter. "delimiter //" change the delimiter to "//",
 -- and "delimiter ;" converts the delimiter back to ';' after the entire statement.
 -- We can pass the parameters into the parentheses "()" next to the name of the procedure like functions,
@@ -45,8 +45,7 @@ delimiter //
 CREATE PROCEDURE `sell`(IN `sold_id` INT)
 BEGIN
 UPDATE `collections` SET `deleted` = 1 WHERE `id` = `sold_id`;
-INSERT INTO `transactions` (`title`, `action`)
-VALUES ((SELECT `title` FROM `collections` WHERE `id` = `sold_id`), 'sold');
+INSERT INTO `transactions` (`title`, `action`) VALUES ((SELECT `title` FROM `collections` WHERE `id` = `sold_id`), 'sold');
 END//
 delimiter ;
 -- Each parameter is an "IN" parameter by default. An IN parameter passes a value into a procedure.
@@ -78,7 +77,6 @@ IF `sold_id` NOT IN (
     SIGNAL SQLSTATE '45000';
 END IF;
 UPDATE `collections` SET `deleted` = 1 WHERE `id` = `sold_id`;
-INSERT INTO `transactions` (`title`, `action`)
-VALUES ((SELECT `title` FROM `collections` WHERE `id` = `sold_id`), 'sold');
+INSERT INTO `transactions` (`title`, `action`) VALUES ((SELECT `title` FROM `collections` WHERE `id` = `sold_id`), 'sold');
 END//
 delimiter ;

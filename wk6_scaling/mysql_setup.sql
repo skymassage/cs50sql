@@ -9,11 +9,9 @@ docker run --name mysql -p 3306:3306 -v $(pwd)/wk6_scaling:/mnt:ro -e MYSQL_ROOT
 -- otherwise you will see "ERROR 2003 (HY000): Can't connect to MySQL server on '127.0.0.1:3306' (111)".
 docker start mysql
 
--- Connect to a MySQL server with the "root" username whose passwaor is "123":
-mysql -u root -h 127.0.0.1 -P 3306 -p
--- Or you can use "docker exec" to connect to the connect server:
+-- Run "mysql -u root -h 127.0.0.1 -P 3306 -p" in the mysql container
+-- with the "root" username whose passwaor is "123" to connect the server:
 docker exec -it mysql mysql -u root -h 127.0.0.1 -P 3306 -p
--- Connect the MySQL server by "mysql -u <username> -h 127.0.0.1 -P 3306 -p":
 -- "-u" indicates the username of the MySQL account to use for connecting to the server.
 -- "-h" connects to the MySQL server on the given host, and here "127.0.0.1" the IP address of the hostname "localhost".
 -- "-P" is the port number to use, and "3306" is the default port where MySQL is hosted.
@@ -25,11 +23,11 @@ docker exec mysql ls /mnt
 -- Lists all databases on server
 SHOW DATABASES;
 
+-- Shows all tables
+SHOW TABLES;
+
 -- Use "DESCRIBE" to view table details.
 DESCRIBE `<table>`;
-
--- Shows all tables in `mbta` database
-SHOW TABLES;
 
 -- Quit the MySQL.
 quit
