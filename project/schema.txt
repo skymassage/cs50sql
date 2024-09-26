@@ -1,0 +1,66 @@
+Table categories {
+  id INTEGER [primary key]
+  name TEXT
+}
+
+Table watchlists {
+  user_id INTEGER [ref: > users.id]
+  listing_id INTEGER [ref: > listings.id]
+
+  indexes {
+    (user_id, listing_id) [pk] 
+  }
+}
+
+TABLE rates {
+  user_id INRGER [ref: > users.id]
+  listing_id INTEGER [ref: > listings.id]
+  score INTEGER
+
+  indexes {
+    (listing_id, user_id) [pk]
+  }
+}
+
+TABLE comments {
+  id INTEGER [primary key]
+  user_id INTEGER [ref: > users.id]
+  listing_id INTEGER [ref: > listings.id]
+  content TEXT
+  creating_time NUMERIC
+}
+
+Table users {
+  id INTEGER [primary key]
+  username TEXT
+  password TEXT
+}
+
+Table listings {
+  id INT [primary key]
+  user_id INTEGER [ref: > users.id]
+  title TEXT
+  category_id INTEGER [ref: > categories.id]
+  price NUMERIC 
+  number INTEGER
+  creating_time NUMBERIC
+  active INTEGER
+}
+
+TABLE orders {
+  id INTEGER [primary key]
+  user_id INTEGER [ref: > users.id]
+  creating_time NUMERIC
+  completed INTEGER
+}
+
+TABLE order_details {
+  order_id INTEGER [ref: > orders.id]
+  listing_id INTEGER [ref: > listings.id]
+  price NUMERIC
+  number INTEGER
+
+  indexes {
+    (order_id, listing_id) [pk] 
+  }
+}
