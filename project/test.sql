@@ -14,19 +14,12 @@ DROP TRIGGER IF EXISTS "update_item";
 DROP TRIGGER IF EXISTS "delete_item";
 
 ----------------------------------------------------------------- Tables
--- Table for item categories 
-CREATE TABLE "categories" (
-    "id" INTEGER,
-    "name" TEXT NOT NULL,
-    PRIMARY KEY("id")
-);
-
 -- Table for customers in the website
 CREATE TABLE "customers" (
     "id" INTEGER,
     "username" TEXT NOT NULL UNIQUE,
     -- "gender" TEXT NOT NULL,
-    -- "age" TEXT NOT NULL,
+    -- "age" INTEGER NOT NULL,
     -- "city" TEXT NOT NULL,
     PRIMARY KEY("id")
 );
@@ -40,10 +33,17 @@ CREATE TABLE "items" (
     "price" NUMERIC NOT NULL CHECK("price" > 0),
     "number" INTEGER NOT NULL CHECK ("number" > 0),
     "creating_time" NUMERIC NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "active" INTEGER NOT NULL CHECK("active" IN (0, 1)),
+    "avilable" INTEGER NOT NULL CHECK("avilable" IN (0, 1)),
     PRIMARY KEY("id"),
     FOREIGN KEY("customer_id") REFERENCES "customers"("id"),
     FOREIGN KEY("category_id") REFERENCES "categories"("id")
+);
+
+-- Table for item categories 
+CREATE TABLE "categories" (
+    "id" INTEGER,
+    "name" TEXT NOT NULL,
+    PRIMARY KEY("id")
 );
 
 -- Table for orders
@@ -66,6 +66,18 @@ CREATE TABLE "order_details" (
     FOREIGN KEY("item_id") REFERENCES "items"("id")
 );
 
+-- Table for item comments
+CREATE TABLE "comments" (
+    "id" INTEGER,
+    "customer_id" INTEGER,
+    "item_id" INTEGER,
+    "content" TEXT NOT NULL,
+    "creating_time" NUMERIC NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY("id"),
+    FOREIGN KEY("customer_id") REFERENCES "customers"("id"),
+    FOREIGN KEY("item_id") REFERENCES "items"("id")
+);
+
 -- Table for item rates
 CREATE TABLE "rates" (
     "item_id" INTEGER,
@@ -84,25 +96,13 @@ CREATE TABLE "watchlists" (
     FOREIGN KEY("item_id") REFERENCES "items"("id")
 );
 
--- Table for item comments
-CREATE TABLE "comments" (
-    "id" INTEGER,
-    "customer_id" INTEGER,
-    "item_id" INTEGER,
-    "content" TEXT NOT NULL,
-    "creating_time" NUMERIC NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY("id"),
-    FOREIGN KEY("customer_id") REFERENCES "customers"("id"),
-    FOREIGN KEY("item_id") REFERENCES "items"("id")
-);
-
 ----------------------------------------------------------------- Views
 -- View for the current items
 CREATE VIEW "current_items" AS
 SELECT "items"."id" AS "item_id", "username" AS "seller", "title", "categories"."name" AS "category", "price", "number", "creating_time" FROM "items"
 JOIN "categories" ON "items"."category_id" = "categories"."id"
 JOIN "customers" ON "items"."customer_id" = "customers"."id"
-WHERE "active" = 1
+WHERE "avilable" = 1
 ORDER BY "creating_time";
 
 ----------------------------------------------------------------- Triggers
@@ -111,7 +111,7 @@ CREATE TRIGGER "add_item"
 INSTEAD OF INSERT ON "current_items"
 FOR EACH ROW
 BEGIN
-    INSERT INTO "items" ("customer_id", "category_id", "title", "price", "number", "active")
+    INSERT INTO "items" ("customer_id", "category_id", "title", "price", "number", "avilable")
     VALUES ((SELECT "id" FROM "customers" WHERE "username" = NEW."seller"),
             (SELECT "id" FROM "categories" WHERE "name" = NEW."category"),
             NEW."title", NEW."price", NEW."number", 1
@@ -131,7 +131,7 @@ CREATE TRIGGER "delete_item"
 INSTEAD OF DELETE ON "current_items"
 FOR EACH ROW 
 BEGIN
-    UPDATE "items" SET "active" = 0 WHERE "id" = OLD."item_id";
+    UPDATE "items" SET "avilable" = 0 WHERE "id" = OLD."item_id";
 END;
 ---------------------------- Query
 

@@ -10,18 +10,19 @@ This database is specially designed for an online shop to track and store data r
 
 * **Users** includes basic user information for system that can track their orders, watchlists, comments and user ratings.
 * **Items** includes item information for customers to browse.
+* **Categories** includes different categories for items to help customers find items.
 * **Orders** includes unique user-order pairs that the system can track orders.
 * **Order details** includes order-item pairs and their detailed information: price and number of items ordered.
-* **Categories** includes different categories for items to help customers find items.
-* **Rates** includes unique user-item pairs and ratings corresponding to user-item pairs.
 * **Comments** includes user-item pairs and comments corresponding to user-item pairs.
+* **Rates** includes unique user-item pairs and ratings corresponding to user-item pairs.
 * **Watchlists** includes user-item pairs that can track which items customers are watching.
 
 The goal of the database is to track user's orders, ratings, comments, and items and categories of interest, and to analyze customer behavior and shopping habits. Some information including item description, user's detailed information (like name, contact information), or shipping status are not our concern for analyst, or some are sensitive such as income, biometric information. They are outside the scope of this database.
 
 ## Functional Requirements
 
-<!-- What should a user be able to do with your database? -->
+This database can be used to:
+
 * Create new customers with their information, which can be ustilized for analyst.
 * Create new items for customers to browse, show the available items and find the items by category.
 * Track orders and their detailed information. 
@@ -32,6 +33,8 @@ The shop does not support replying to customer questions in comments and they ca
 
 ## Representation
 
+This databse is built in SQLite wiht the following entities and relationship:
+
 ### Entities
 
 <!-- * Which entities will you choose to represent in your database?
@@ -39,9 +42,71 @@ The shop does not support replying to customer questions in comments and they ca
      * Why did you choose the types you did?
      * Why did you choose the constraints you did? -->
 
+#### Customers
+The `customers` table includes:
+* `id` represents the unique ID for each customer. This column has the `PRIMARY KEY` constraint applied, setting the ID to a unique `INTEGER`.
+* `username` represents the unique username for each customer. Each field in this column is `UNIQUE` and set to `TEXT`.
+* `gender` represents the customer's gender. Each field in this column is set to `TEXT`.
+* `age` represents the customer's age. Each field in this column is set to an `INTEGER`.
+* `city` represents the city where the customer lives.  Each field in this column is set to `TEXT`.
+
+#### Items
+The `items` table includes:
+* `id` represents the unique ID for each item. This column has the `PRIMARY KEY` constraint applied, setting the ID to a unique `INTEGER`.
+* `customer_id` 
+* `title` represents the item title. Each field in this column is set to `TEXT`.
+* `category_id`
+* `price` represents the item price.  Each field in this column is set to `NUMERIC`, and has the `CHECK` constraint that only allows `price` above 0.
+* `number` represents the number of each item. Each field in this column is set to `INTEGER`, and has the `CHECK` constraint that only allows `number` above 0.
+* `creating_time` represents the time when the item was created at. By default, each field in this column is set to the timestamp when the item was created using `DEFAULT CURRENT_TIMESTAMP`.
+* `avilable` represents the item status. Each field in this column is set to an `INTEGER`, but with the `CHECK` constraint to ensure that `avilable` is 0 or 1, indicating that the item is avilable or not.
+
+#### Categories
+The `categories` table includes:
+* `id` represents the unique ID for each category. This column has the `PRIMARY KEY` constraint applied, setting the ID to a unique `INTEGER`.
+* `name` represents the item category name. Each field in this column is set to `TEXT`.
+
+#### Orders
+The `orders` table includes:
+* `id` represents the unique ID for each order. This column has the `PRIMARY KEY` constraint applied, setting the ID to a unique `INTEGER`.
+* `customer_id`
+* `creating_time` represents the time when the order was created at. By default, each field in this column is set to the timestamp when the order was created using `DEFAULT CURRENT_TIMESTAMP`.
+
+#### Order details
+The `order_details` table includes:
+* `order_id`
+* `item_id`
+* `price` 
+* `number`
+
+#### Comments
+The `comments` table includes:
+* `id` represents the unique ID for each comment. This column has the `PRIMARY KEY` constraint applied, setting the ID to a unique `INTEGER`.
+* `customer_id`
+* `item_id`
+* `content` represents the content for each comment. Each field in this column is set to `TEXT`.
+* `creating_time` represents the time when the comment was created at. By default, each field in this column is set to the timestamp when the comment was created using `DEFAULT CURRENT_TIMESTAMP`.
+
+#### Rates
+The `rates` table includes:
+* `item_id`
+* `customer_id`
+* `rating` represents
+
+#### Watchlists
+The `watchlists` table includes:
+* `customer_id`
+* `item_id`
+
 ### Relationships
 
 <!-- Include your entity relationship diagram and describe the relationships between the entities in your database. -->
+This relationships between the entities in this database are described in the fowllowing entity relationship diagram:
+
+![ER Diagram](diagram.png)
+
+*
+*
 
 ## Optimizations
 
