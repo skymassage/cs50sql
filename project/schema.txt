@@ -1,44 +1,13 @@
-Table categories {
-  id INTEGER [primary key]
-  name TEXT
-}
-
-Table watchlists {
-  user_id INTEGER [ref: > users.id]
-  listing_id INTEGER [ref: > listings.id]
-
-  indexes {
-    (user_id, listing_id) [pk] 
-  }
-}
-
-TABLE rates {
-  user_id INRGER [ref: > users.id]
-  listing_id INTEGER [ref: > listings.id]
-  score INTEGER
-
-  indexes {
-    (listing_id, user_id) [pk]
-  }
-}
-
-TABLE comments {
-  id INTEGER [primary key]
-  user_id INTEGER [ref: > users.id]
-  listing_id INTEGER [ref: > listings.id]
-  content TEXT
-  creating_time NUMERIC
-}
-
-Table users {
+Table customers {
   id INTEGER [primary key]
   username TEXT
-  password TEXT
+  gender TEXT
+  age TEXT
+  city TEXT
 }
 
-Table listings {
+Table items {
   id INT [primary key]
-  user_id INTEGER [ref: > users.id]
   title TEXT
   category_id INTEGER [ref: > categories.id]
   price NUMERIC 
@@ -47,20 +16,51 @@ Table listings {
   active INTEGER
 }
 
+Table categories {
+  id INTEGER [primary key]
+  name TEXT
+}
+
 TABLE orders {
   id INTEGER [primary key]
-  user_id INTEGER [ref: > users.id]
+  customer_id INTEGER [ref: > customers.id]
   creating_time NUMERIC
-  completed INTEGER
 }
 
 TABLE order_details {
   order_id INTEGER [ref: > orders.id]
-  listing_id INTEGER [ref: > listings.id]
+  item_id INTEGER [ref: > items.id]
   price NUMERIC
   number INTEGER
 
   indexes {
-    (order_id, listing_id) [pk] 
+    (order_id, item_id) [pk] 
+  }
+}
+
+TABLE comments {
+  id INTEGER [primary key]
+  customer_id INTEGER [ref: > customers.id]
+  item_id INTEGER [ref: > items.id]
+  content TEXT
+  creating_time NUMERIC
+}
+
+TABLE rates {
+  customer_id INRGER [ref: > customers.id]
+  item_id INTEGER [ref: > items.id]
+  rating INTEGER
+
+  indexes {
+    (customer_id, item_id) [pk]
+  }
+}
+
+Table watchlists {
+  customer_id INTEGER [ref: > customers.id]
+  item_id INTEGER [ref: > items.id]
+
+  indexes {
+    (customer_id, item_id) [pk] 
   }
 }
