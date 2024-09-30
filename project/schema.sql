@@ -1,11 +1,12 @@
-DROP TABLE IF EXISTS "categories";
+---------------------------------------------- Drop tables, views, triggers, and indexes if they exsit
 DROP TABLE IF EXISTS "customers";
 DROP TABLE IF EXISTS "items";
+DROP TABLE IF EXISTS "categories";
 DROP TABLE IF EXISTS "orders";
 DROP TABLE IF EXISTS "order_details";
+DROP TABLE IF EXISTS "comments";
 DROP TABLE IF EXISTS "ratings";
 DROP TABLE IF EXISTS "watchlists";
-DROP TABLE IF EXISTS "comments";
 
 DROP VIEW IF EXISTS "current_items";
 
@@ -13,7 +14,12 @@ DROP TRIGGER IF EXISTS "add_item";
 DROP TRIGGER IF EXISTS "update_item";
 DROP TRIGGER IF EXISTS "delete_item";
 
------------------------------------------------------------------ Tables
+DROP INDEX IF EXISTS "customer_index";
+DROP INDEX IF EXISTS "rating_index";
+DROP INDEX IF EXISTS "category_index";
+DROP INDEX IF EXISTS "item_index";
+
+---------------------------------------------- Tables
 -- Table for customers in the website
 CREATE TABLE "customers" (
     "id" INTEGER,
@@ -67,8 +73,8 @@ CREATE TABLE "order_details" (
 -- Table for item comments
 CREATE TABLE "comments" (
     "id" INTEGER,
-    "customer_id" INTEGER,
     "item_id" INTEGER,
+    "customer_id" INTEGER,
     "content" TEXT NOT NULL,
     "creating_time" NUMERIC NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY("id"),
@@ -95,7 +101,7 @@ CREATE TABLE "watchlists" (
     FOREIGN KEY("item_id") REFERENCES "items"("id")
 );
 
------------------------------------------------------------------ Views
+---------------------------------------------- Views
 -- View for the current items
 CREATE VIEW "current_items" AS
 SELECT "items"."id" AS "item_id", "title", "categories"."name" AS "category", "price", "number", "creating_time" FROM "items"
@@ -103,7 +109,7 @@ JOIN "categories" ON "items"."category_id" = "categories"."id"
 WHERE "avilable" = 1
 ORDER BY "creating_time";
 
------------------------------------------------------------------ Triggers
+---------------------------------------------- Triggers
 -- Trigger for adding new items
 CREATE TRIGGER "add_item"
 INSTEAD OF INSERT ON "current_items"
@@ -130,3 +136,9 @@ FOR EACH ROW
 BEGIN
     UPDATE "items" SET "avilable" = 0 WHERE "id" = OLD."item_id";
 END;
+
+---------------------------------------------- Indexes
+CREATE INDEX "customer_index" ON "customers" ("gender", "age", "city");
+CREATE INDEX "item_index" ON "items" ("price", "number", "creating_time", "avilable");
+CREATE INDEX "category_index" ON "categories" ("name");
+CREATE INDEX "rating_index" ON "ratings" ("rating");

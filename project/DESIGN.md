@@ -2,7 +2,7 @@
 
 By Jiahui Lin
 
-Video overview: <URL HERE>
+Video overview: https://www.youtube.com/watch?v=32Lz4PZ53dc
 
 ## Scope
 
